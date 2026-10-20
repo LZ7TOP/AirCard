@@ -1891,6 +1891,7 @@ struct WalletCardView: View {
     let onDelete: () -> Void
     let onDropImage: (URL) -> Void
     
+    @ObservedObject private var l10nManager = LocalizationManager.shared
     @State private var isHovered = false
     @State private var isTargeted = false
     @State private var copied = false
@@ -1933,7 +1934,7 @@ struct WalletCardView: View {
                                 Spacer()
                                 HStack {
                                     Spacer()
-                                    Label("Change Skin", systemImage: "photo.badge.arrow.forward")
+                                    Label("Change Skin".localized, systemImage: "photo.badge.arrow.forward")
                                         .font(.caption)
                                         .fontWeight(.semibold)
                                         .padding(.horizontal, 12)
@@ -2150,6 +2151,7 @@ struct CryptoDonationRowMac: View {
     let icon: String
     let iconColor: Color
 
+    @ObservedObject private var l10nManager = LocalizationManager.shared
     @State private var isCopied = false
 
     var body: some View {
@@ -2158,7 +2160,7 @@ struct CryptoDonationRowMac: View {
                 Image(systemName: icon)
                     .foregroundColor(iconColor)
                     .font(.system(size: 13, weight: .bold))
-                Text(title)
+                Text(title.localized)
                     .font(.system(size: 12, weight: .semibold))
                 Spacer()
                 Button(action: {
@@ -2176,7 +2178,7 @@ struct CryptoDonationRowMac: View {
                 }) {
                     HStack(spacing: 4) {
                         Image(systemName: isCopied ? "checkmark" : "doc.on.doc")
-                        Text(isCopied ? "Copied!" : "Copy")
+                        Text((isCopied ? "Copied!" : "Copy").localized)
                     }
                     .font(.system(size: 10, weight: .bold))
                 }
@@ -2311,7 +2313,7 @@ struct ContentView: View {
                 .background(Color(NSColor.controlBackgroundColor))
         }
         .frame(minWidth: 880, minHeight: 680)
-        .alert("Something went wrong", isPresented: Binding(
+        .alert("Something went wrong".localized, isPresented: Binding(
             get: { vm.errorMessage != nil },
             set: { if !$0 { vm.errorMessage = nil } }
         )) {
@@ -2422,7 +2424,7 @@ struct ContentView: View {
                         Divider()
 
                         Button(action: { vm.checkDevice() }) {
-                            Label("Refresh Device List", systemImage: "arrow.clockwise")
+                            Label("Refresh Device List".localized, systemImage: "arrow.clockwise")
                         }
                     } label: {
                         HStack(spacing: 5) {
@@ -2515,7 +2517,7 @@ struct ContentView: View {
             .cornerRadius(16)
             
             Button(action: { showCredits = true }) {
-                Label("Credits & Donate", systemImage: "heart.fill")
+                Label("Credits & Donate".localized, systemImage: "heart.fill")
                     .foregroundColor(.pink)
             }
             .buttonStyle(.bordered)
@@ -2541,7 +2543,7 @@ struct ContentView: View {
                         Image(systemName: "wave.3.forward.circle.fill")
                             .frame(width: 16, height: 16)
                     }
-                    Text(vm.isCheckingDevice ? "Checking iPhone…" : vm.isScanningCards ? "Stop Scanning" : "Scan Cards")
+                    Text((vm.isCheckingDevice ? "Checking iPhone…" : vm.isScanningCards ? "Stop Scanning" : "Scan Cards").localized)
                         .fontWeight(.semibold)
                 }
             }
@@ -2551,14 +2553,14 @@ struct ContentView: View {
             .disabled(vm.device?.connected != true || vm.isCheckingDevice || vm.isFlashing)
             
             Button(action: { vm.showAddCardSheet = true }) {
-                Label("Save IDs", systemImage: "plus")
+                Label("Save IDs".localized, systemImage: "plus")
             }
             .buttonStyle(.bordered)
             .controlSize(.regular)
             
             if !vm.cards.isEmpty {
                 Button(action: openBulkImagePicker) {
-                    Label("Set Skin for All...", systemImage: "photo.on.rectangle.angled")
+                    Label("Set Skin for All...".localized, systemImage: "photo.on.rectangle.angled")
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.regular)
@@ -2703,21 +2705,21 @@ struct ContentView: View {
             
             if vm.passcodeTabMode == .applyTheme {
                 Button(action: { openPasscodeThemePicker() }) {
-                    Label("Choose .passthm File...", systemImage: "folder.badge.plus")
+                    Label("Choose .passthm File...".localized, systemImage: "folder.badge.plus")
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.purple)
                 .controlSize(.regular)
             } else {
                 Button(action: { openPosterPicker() }) {
-                    Label(vm.creatorPosterImage == nil ? "Choose Poster..." : "Change Poster...", systemImage: "photo")
+                    Label((vm.creatorPosterImage == nil ? "Choose Poster..." : "Change Poster...").localized, systemImage: "photo")
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.purple)
                 .controlSize(.regular)
                 
                 Button(action: { openSavePasscodeThemePanel() }) {
-                    Label("Export .passthm...", systemImage: "square.and.arrow.up")
+                    Label("Export .passthm...".localized, systemImage: "square.and.arrow.up")
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.regular)
@@ -2867,7 +2869,7 @@ struct ContentView: View {
                     
                     HStack(spacing: 8) {
                         Button(action: { vm.editLoadedThemeInCreator() }) {
-                            Label("Edit in Creator", systemImage: "pencil.and.outline")
+                            Label("Edit in Creator".localized, systemImage: "pencil.and.outline")
                         }
                         .buttonStyle(.borderedProminent)
                         .tint(.purple)
@@ -3221,7 +3223,7 @@ struct ContentView: View {
                         // Per-key framing controls
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
-                                Label("Key \(selDigit) Framing", systemImage: "crop")
+                                Label(l10n("Key \(selDigit) Framing", "按键 \(selDigit) 画框"), systemImage: "crop")
                                     .font(.subheadline)
                                     .fontWeight(.bold)
                                     .foregroundColor(.purple)
@@ -4040,7 +4042,7 @@ struct ContentView: View {
                 .controlSize(.regular)
                 .frame(maxWidth: .infinity)
 
-                Toggle("Don't show this popup on startup", isOn: $dontShowSupportOnLaunch)
+                Toggle("Don't show this popup on startup".localized, isOn: $dontShowSupportOnLaunch)
                     .font(.caption)
                     .foregroundColor(.secondary)
 
@@ -4055,7 +4057,7 @@ struct ContentView: View {
 
     private var creditsSheet: some View {
         VStack(spacing: 14) {
-            Picker("Category", selection: $creditsSelectedTab) {
+            Picker("Category".localized, selection: $creditsSelectedTab) {
                 Text("Credits".localized).tag(0)
                 Text("Donate ❤️".localized).tag(1)
             }

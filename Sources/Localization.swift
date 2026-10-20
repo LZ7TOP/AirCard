@@ -137,6 +137,34 @@ public final class LocalizationManager: ObservableObject {
             return key.replacingOccurrences(of: "Fast mode selected: only targets ", with: "已选择快速模式：仅针对 ")
                       .replacingOccurrences(of: " with ", with: " 并使用 ")
         }
+        if key.hasPrefix("Detected ") && key.contains(" distinct card(s) this scan. Open any missing card in Wallet to check it.") {
+            let num = key.replacingOccurrences(of: "Detected ", with: "").replacingOccurrences(of: " distinct card(s) this scan. Open any missing card in Wallet to check it.", with: "")
+            return "本次扫描检测到 \(num) 张不同的卡片。在“钱包”中打开任何未显示的卡片以进行检查。"
+        }
+        if key.hasPrefix("Verified ") && key.contains(" card(s) from this iPhone's current Wallet activity.") {
+            let num = key.replacingOccurrences(of: "Verified ", with: "").replacingOccurrences(of: " card(s) from this iPhone's current Wallet activity.", with: "")
+            return "已从本次 iPhone 钱包活动中验证 \(num) 张卡片。"
+        }
+        if key.hasPrefix("Matched ") && key.contains(" payment card(s) to this iPhone. Open membership cards individually if any are missing.") {
+            let num = key.replacingOccurrences(of: "Matched ", with: "").replacingOccurrences(of: " payment card(s) to this iPhone. Open membership cards individually if any are missing.", with: "")
+            return "已为该 iPhone 匹配 \(num) 张支付卡。若有会员卡缺失，请在“钱包”中单独点开。"
+        }
+        if key.hasPrefix("Added ") && key.contains(" card ID(s) ready for skinning and flashing.") {
+            let num = key.replacingOccurrences(of: "Added ", with: "").replacingOccurrences(of: " card ID(s) ready for skinning and flashing.", with: "")
+            return "已添加 \(num) 个卡片 ID，已准备好设置卡面并刷入。"
+        }
+        if key.hasPrefix("Scanner stopped unexpectedly (exit ") && key.contains("). Reconnect and unlock the iPhone, then scan again. Check Log for details.") {
+            let code = key.replacingOccurrences(of: "Scanner stopped unexpectedly (exit ", with: "").replacingOccurrences(of: "). Reconnect and unlock the iPhone, then scan again. Check Log for details.", with: "")
+            return "扫描器意外停止 (退出代码 \(code))。请重新连接并解锁 iPhone 后重试。详情请查看日志。"
+        }
+        if key.hasPrefix("Scan stopped. ") && key.contains(" card(s) detected.") {
+            let num = key.replacingOccurrences(of: "Scan stopped. ", with: "").replacingOccurrences(of: " card(s) detected.", with: "")
+            return "扫描已停止。检测到 \(num) 张卡片。"
+        }
+        if key.hasSuffix(" card(s) verified.") {
+            let num = String(key.dropLast(" card(s) verified.".count))
+            return "\(num) 张卡片已验证。"
+        }
 
         // Return original if no translation exists
         return key
@@ -167,6 +195,8 @@ public final class LocalizationManager: ObservableObject {
         "Exported .passthm to %@": "已导出 .passthm 至 %@",
         "Failed to export theme: %@": "导出主题失败：%@",
         "Apple Wallet": "Apple 钱包",
+        "AirCard needs Xcode Command Line Tools to communicate with devices.\n\nPlease open Terminal and run:\nxcode-select --install\n\nor open Xcode to accept the license agreement, then restart AirCard.": "AirCard 需要 Xcode 命令行工具来与设备通信。\n\n请打开“终端”并运行：\nxcode-select --install\n\n或打开 Xcode 同意许可协议，然后重新启动 AirCard。",
+        "Scanner connected. Open Wallet and tap a card; membership cards may need opening in the Wallet app.": "扫描器已连接。请打开“钱包”并轻触卡片；会员卡可能需要在“钱包”App 中单独点开。",
         "Passcode (.passthm)": "锁屏密码主题 (.passthm)",
         "Apple Wallet & Passcode Themes": "Apple 钱包卡面与锁屏密码主题",
         "Apply .passthm": "应用 .passthm",

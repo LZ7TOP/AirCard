@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WalletDiagnosticsView: View {
     @ObservedObject var vm: AppViewModel
+    @ObservedObject private var l10nManager = LocalizationManager.shared
     @State private var expanded = false
 
     private var pendingCount: Int {
