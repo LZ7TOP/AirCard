@@ -1925,7 +1925,7 @@ struct WalletCardView: View {
                         }
                         .buttonStyle(.plain)
                         .padding(10)
-                        .help("Remove skin")
+                        .help("Remove skin".localized)
                         
                         // Hover overlay: Change Skin
                         if isHovered {
@@ -1996,7 +1996,7 @@ struct WalletCardView: View {
                                 .fontWeight(.medium)
                                 .foregroundColor(.primary)
                             
-                            Text("Click to browse or drag image")
+                            Text("Click to browse or drag image".localized)
                                 .font(.caption2)
                                 .foregroundColor(.secondary)
                         }
@@ -2323,9 +2323,9 @@ struct ContentView: View {
             Button("OK".localized) {}
         } message: {
             if vm.selectedTab == .passcodeThemes {
-                Text("Passcode theme successfully applied!\n\nLock your iPhone (or restart) to see your new passcode keypad.")
+                Text("Passcode theme successfully applied!\n\nLock your iPhone (or restart) to see your new passcode keypad.".localized)
             } else {
-                Text("Skins successfully applied to all selected cards!\n\nPlease force-close the Wallet app on your iPhone (or reboot) to see your new designs.\n\nNote: Apple Card renders dynamically and its face color reflects your spending categories rather than static cached skins.")
+                Text("Skins successfully applied to all selected cards!\n\nPlease force-close the Wallet app on your iPhone (or reboot) to see your new designs.\n\nNote: Apple Card renders dynamically and its face color reflects your spending categories rather than static cached skins.".localized)
             }
         }
         .sheet(isPresented: $showSupportPopup) {
@@ -2372,7 +2372,7 @@ struct ContentView: View {
                         .foregroundColor(.accentColor)
                         .clipShape(Capsule())
                 }
-                Text("Wallet Cards & Passcode Themes")
+                Text("Wallet Cards & Passcode Themes".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -2460,7 +2460,7 @@ struct ContentView: View {
                         .contentShape(Rectangle())
                     }
                     .menuStyle(.borderlessButton)
-                    .help("Click to select an active device")
+                    .help("Click to select an active device".localized)
                 }
 
                 Button(action: { vm.checkDevice() }) {
@@ -2562,7 +2562,7 @@ struct ContentView: View {
                 }
                 .buttonStyle(.bordered)
                 .controlSize(.regular)
-                .help("Assign one skin to all selected cards")
+                .help("Assign one skin to all selected cards".localized)
             }
             
             Spacer()
@@ -2609,11 +2609,11 @@ struct ContentView: View {
                 .foregroundColor(.blue)
             
             VStack(alignment: .leading, spacing: 2) {
-                Text("Live Scanner Active")
+                Text("Live Scanner Active".localized)
                     .font(.caption)
                     .fontWeight(.bold)
                     .foregroundColor(.blue)
-                Text("Double-click Side button (Apple Pay), pass Face ID, then tap your card.")
+                Text("Double-click Side button (Apple Pay), pass Face ID, then tap your card.".localized)
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
@@ -2652,7 +2652,7 @@ struct ContentView: View {
                     Text("2.")
                         .fontWeight(.bold)
                         .foregroundColor(.accentColor)
-                    Text("On your iPhone, **double-click the Side button** (Apple Pay), authenticate with **Face ID**, and **tap your card**.")
+                    Text("On your iPhone, **double-click the Side button** (Apple Pay), authenticate with **Face ID**, and **tap your card**.".localized)
                 }
                 HStack(alignment: .top, spacing: 10) {
                     Text("3.")
@@ -2677,7 +2677,7 @@ struct ContentView: View {
                 .controlSize(.regular)
                 .disabled(vm.device?.connected != true || vm.isCheckingDevice || vm.isFlashing)
                 
-                Button("Save IDs for Matching") {
+                Button("Save IDs for Matching".localized) {
                     vm.showAddCardSheet = true
                 }
                 .buttonStyle(.bordered)
@@ -2728,14 +2728,14 @@ struct ContentView: View {
             
             // Target Version Picker
             HStack(spacing: 6) {
-                Text("Target:")
+                Text("Target:".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
                 Picker("", selection: $vm.targetTelephonyVersion) {
-                    Text("TelephonyUI-10 (iOS 18+)").tag("TelephonyUI-10")
-                    Text("TelephonyUI-9 (iOS 16–17)").tag("TelephonyUI-9")
-                    Text("TelephonyUI-8 (iOS 14–15)").tag("TelephonyUI-8")
-                    Text("Universal (All 8, 9, 10)").tag("all")
+                    Text("TelephonyUI-10 (iOS 18+)".localized).tag("TelephonyUI-10")
+                    Text("TelephonyUI-9 (iOS 16–17)".localized).tag("TelephonyUI-9")
+                    Text("TelephonyUI-8 (iOS 14–15)".localized).tag("TelephonyUI-8")
+                    Text("Universal (All 8, 9, 10)".localized).tag("all")
                 }
                 .pickerStyle(.menu)
                 .controlSize(.regular)
@@ -2746,7 +2746,7 @@ struct ContentView: View {
                 .foregroundColor(.secondary)
             
             if vm.passcodeTabMode == .applyTheme {
-                Button("Clear Theme") {
+                Button("Clear Theme".localized) {
                     vm.loadedPasscodeTheme = nil
                 }
                 .buttonStyle(.link)
@@ -2792,13 +2792,13 @@ struct ContentView: View {
             // Right Column: Authentic iPhone Lock Screen Mockup
             VStack(spacing: 8) {
                 HStack {
-                    Text("Lock Screen Keypad Preview")
+                    Text("Lock Screen Keypad Preview".localized)
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundColor(.secondary)
                     Spacer()
                     if vm.loadedPasscodeTheme != nil {
-                        Text("Custom Theme Loaded")
+                        Text("Custom Theme Loaded".localized)
                             .font(.system(size: 10, weight: .semibold))
                             .foregroundColor(.green)
                     }
@@ -2834,7 +2834,7 @@ struct ContentView: View {
     
     private var applyThemeControlsCard: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Passcode Theme File")
+            Text("Passcode Theme File".localized)
                 .font(.caption)
                 .fontWeight(.semibold)
                 .foregroundColor(.secondary)
@@ -2861,7 +2861,7 @@ struct ContentView: View {
                         }
                     }
                     
-                    Text("\(theme.fileCount) artwork assets loaded · Ready to flash to iPhone")
+                    Text(l10n("%d artwork assets loaded · Ready to flash to iPhone", theme.fileCount))
                         .font(.caption2)
                         .foregroundColor(.secondary)
                     
@@ -2873,7 +2873,7 @@ struct ContentView: View {
                         .tint(.purple)
                         .controlSize(.regular)
                         
-                        Button("Change...") {
+                        Button("Change...".localized) {
                             openPasscodeThemePicker()
                         }
                         .buttonStyle(.bordered)
@@ -2896,17 +2896,17 @@ struct ContentView: View {
                         .font(.system(size: 32))
                         .foregroundColor(.purple)
                     
-                    Text("Drop .passthm file here")
+                    Text("Drop .passthm file here".localized)
                         .font(.caption)
                         .fontWeight(.semibold)
                     
-                    Text("Supports .passthm, .passtheme, or .zip packages from Cowabunga or Nugget")
+                    Text("Supports .passthm, .passtheme, or .zip packages from Cowabunga or Nugget".localized)
                         .font(.caption2)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 8)
                     
-                    Button("Choose File...") {
+                    Button("Choose File...".localized) {
                         openPasscodeThemePicker()
                     }
                     .buttonStyle(.borderedProminent)
@@ -3009,13 +3009,13 @@ struct ContentView: View {
             // Right Column: Authentic iPhone Lock Screen Mockup
             VStack(spacing: 8) {
                 HStack {
-                    Text("Interactive iPhone Lock Screen Preview")
+                    Text("Interactive iPhone Lock Screen Preview".localized)
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundColor(.secondary)
                     Spacer()
                     if vm.creatorSubMode == .posterSlice && vm.creatorPosterImage != nil {
-                        Text("Drag dialer to pan · Use slider to zoom")
+                        Text("Drag dialer to pan · Use slider to zoom".localized)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }
@@ -3048,7 +3048,7 @@ struct ContentView: View {
             if vm.creatorSubMode == .posterSlice {
                 // 1. Poster Source Section
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Poster Artwork")
+                    Text("Poster Artwork".localized)
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundColor(.secondary)
@@ -3066,12 +3066,12 @@ struct ContentView: View {
                                 )
                             
                             VStack(alignment: .leading, spacing: 6) {
-                                Text("Artwork Loaded")
+                                Text("Artwork Loaded".localized)
                                     .font(.subheadline)
                                     .fontWeight(.medium)
                                 
                                 HStack(spacing: 8) {
-                                    Button("Change...") {
+                                    Button("Change...".localized) {
                                         openPosterPicker()
                                     }
                                     .buttonStyle(.bordered)
@@ -3095,11 +3095,11 @@ struct ContentView: View {
                                 .font(.system(size: 26))
                                 .foregroundColor(.purple)
                             
-                            Text("Drop poster or wallpaper here")
+                            Text("Drop poster or wallpaper here".localized)
                                 .font(.caption)
                                 .fontWeight(.medium)
                             
-                            Button("Choose Image...") {
+                            Button("Choose Image...".localized) {
                                 openPosterPicker()
                             }
                             .buttonStyle(.borderedProminent)
@@ -3123,14 +3123,14 @@ struct ContentView: View {
                 
                 // 2. Style Section
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Slicing Style")
+                    Text("Slicing Style".localized)
                         .font(.caption)
                         .fontWeight(.semibold)
                         .foregroundColor(.secondary)
                     
                     Picker("", selection: $vm.creatorMaskToCircles) {
-                        Text("Seamless Poster").tag(false)
-                        Text("Circle Buttons").tag(true)
+                        Text("Seamless Poster".localized).tag(false)
+                        Text("Circle Buttons".localized).tag(true)
                     }
                     .pickerStyle(.segmented)
                     .onChange(of: vm.creatorMaskToCircles) { _, _ in
@@ -3148,14 +3148,14 @@ struct ContentView: View {
                 // 3. Framing & Zoom Section
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
-                        Text("Zoom & Framing")
+                        Text("Zoom & Framing".localized)
                             .font(.caption)
                             .fontWeight(.semibold)
                             .foregroundColor(.secondary)
                         
                         Spacer()
                         
-                        Button("Reset Position") {
+                        Button("Reset Position".localized) {
                             withAnimation(.spring()) {
                                 vm.creatorPosterZoom = 1.0
                                 vm.creatorPosterOffset = .zero
@@ -3174,7 +3174,7 @@ struct ContentView: View {
                             .font(.caption)
                         
                         Slider(value: $vm.creatorPosterZoom, in: 0.5...3.0, step: 0.05) {
-                            Text("Zoom")
+                            Text("Zoom".localized)
                         }
                         .onChange(of: vm.creatorPosterZoom) { _, _ in
                             vm.updatePosterSlicing()
@@ -3194,7 +3194,7 @@ struct ContentView: View {
                         Image(systemName: "hand.draw")
                             .foregroundColor(.secondary)
                             .font(.caption2)
-                        Text("Drag anywhere on the dialer preview to reposition")
+                        Text("Drag anywhere on the dialer preview to reposition".localized)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }
@@ -3203,13 +3203,13 @@ struct ContentView: View {
                 // Individual Keys Mode Controls
                 VStack(alignment: .leading, spacing: 10) {
                     HStack {
-                        Text("Individual Keys")
+                        Text("Individual Keys".localized)
                             .font(.caption)
                             .fontWeight(.semibold)
                             .foregroundColor(.secondary)
                         Spacer()
                         if let sel = vm.selectedKeyDigit {
-                            Button("Deselect Key \(sel)") {
+                            Button(l10n("Deselect Key \(sel)")) {
                                 vm.selectedKeyDigit = nil
                             }
                             .buttonStyle(.link)
@@ -3226,7 +3226,7 @@ struct ContentView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(.purple)
                                 Spacer()
-                                Button("Reset") {
+                                Button("Reset".localized) {
                                     withAnimation(.spring()) {
                                         vm.creatorIndividualOffsets[selDigit] = .zero
                                         vm.creatorIndividualZooms[selDigit] = 1.0
@@ -3270,13 +3270,13 @@ struct ContentView: View {
                                 Image(systemName: "hand.draw")
                                     .foregroundColor(.secondary)
                                     .font(.caption2)
-                                Text("Drag Key \(selDigit) on dialer preview to reposition")
+                                Text(l10n("Drag Key \(selDigit) on dialer preview to reposition"))
                                     .font(.caption2)
                                     .foregroundColor(.secondary)
                             }
                             
                             HStack(spacing: 8) {
-                                Button("Change Image...") {
+                                Button("Change Image...".localized) {
                                     openIndividualKeyPicker(for: selDigit)
                                 }
                                 .buttonStyle(.bordered)
@@ -3301,7 +3301,7 @@ struct ContentView: View {
                         Divider()
                     }
                     
-                    Text("Click any key on the dialer to select it, pan the image, adjust zoom, or drop files.")
+                    Text("Click any key on the dialer to select it, pan the image, adjust zoom, or drop files.".localized)
                         .font(.caption2)
                         .foregroundColor(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -3309,21 +3309,21 @@ struct ContentView: View {
                     HStack(spacing: 6) {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(.accentColor)
-                        Text("\(vm.creatorCustomKeys.count) of 10 keys configured")
+                        Text(l10n("%d of 10 keys configured", vm.creatorCustomKeys.count))
                             .font(.caption)
                             .fontWeight(.medium)
                     }
                     
                     HStack(spacing: 8) {
                         if !vm.creatorSlicedKeys.isEmpty {
-                            Button("Fill from Poster") {
+                            Button("Fill from Poster".localized) {
                                 vm.adoptPosterSlicesToIndividualKeys()
                             }
                             .buttonStyle(.bordered)
                             .controlSize(.regular)
                         }
                         
-                        Button("Clear All Keys") {
+                        Button("Clear All Keys".localized) {
                             vm.clearAllIndividualKeys()
                         }
                         .buttonStyle(.bordered)
@@ -3505,7 +3505,7 @@ struct ContentView: View {
         }
         .contextMenu {
             if vm.creatorSubMode == .individualKeys {
-                Button("Change Key \(btn.digit)...") {
+                Button(l10n("Change Key \(btn.digit)...")) {
                     openIndividualKeyPicker(for: btn.digit)
                 }
                 if customIndividualImage != nil {
@@ -3515,7 +3515,7 @@ struct ContentView: View {
                         dragKeyStartOffsets[btn.digit] = .zero
                         vm.updateIndividualKey(digit: btn.digit)
                     }
-                    Button("Clear Key \(btn.digit)") {
+                    Button(l10n("Clear Key \(btn.digit)")) {
                         vm.clearIndividualKey(digit: btn.digit)
                     }
                 }
@@ -3557,7 +3557,7 @@ struct ContentView: View {
                                 .foregroundColor(.white.opacity(0.9))
                         )
                     
-                    Text("Enter Passcode")
+                    Text("Enter Passcode".localized)
                         .font(.system(size: 14, weight: .regular))
                         .foregroundColor(.white.opacity(0.95))
                         .padding(.top, 2)
@@ -3584,7 +3584,7 @@ struct ContentView: View {
                 
                 // Lock Screen Footer (Height ~28)
                 HStack {
-                    Text("Emergency")
+                    Text("Emergency".localized)
                         .font(.system(size: 13, weight: .regular))
                         .foregroundColor(.white.opacity(0.9))
                     Spacer()
@@ -3613,7 +3613,7 @@ struct ContentView: View {
                 Image(systemName: "slider.horizontal.3")
                     .foregroundColor(.purple)
                     .font(.system(size: 13, weight: .semibold))
-                Text("Flash & Language Target")
+                Text("Flash & Language Target".localized)
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.primary)
@@ -3622,18 +3622,18 @@ struct ContentView: View {
                     Button(action: { vm.applyDevicePreferences(from: dev) }) {
                         HStack(spacing: 3) {
                             Image(systemName: "sparkles")
-                            Text("Auto-detect")
+                            Text("Auto-detect".localized)
                         }
                         .font(.system(size: 9, weight: .medium))
                     }
                     .buttonStyle(.borderless)
-                    .help("Reset to iPhone's detected language and font style")
+                    .help("Reset to iPhone's detected language and font style".localized)
                 }
             }
             
             // 1. Language Target Selector
             VStack(alignment: .leading, spacing: 4) {
-                Text("System Language:")
+                Text("System Language:".localized)
                     .font(.system(size: 10, weight: .medium))
                     .foregroundColor(.secondary)
                 
@@ -3648,7 +3648,7 @@ struct ContentView: View {
             
             // 2. Bold / Font Weight Selector
             VStack(alignment: .leading, spacing: 4) {
-                Text("Font Weight / Style:")
+                Text("Font Weight / Style:".localized)
                     .font(.system(size: 10, weight: .medium))
                     .foregroundColor(.secondary)
                 
@@ -3669,12 +3669,12 @@ struct ContentView: View {
                     .padding(.top, 1)
                 
                 if vm.passcodeLanguageTarget == .all && vm.passcodeBoldTarget == .both {
-                    Text("Universal mode flashes ~600 files for all languages & Bold text. Selecting a specific language (e.g. Ukrainian) speeds up flashing dramatically.")
+                    Text("Universal mode flashes ~600 files for all languages & Bold text. Selecting a specific language (e.g. Ukrainian) speeds up flashing dramatically.".localized)
                         .font(.system(size: 9))
                         .foregroundColor(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                 } else {
-                    Text("Fast mode selected: only targets \(vm.passcodeLanguageTarget.rawValue) with \(vm.passcodeBoldTarget.rawValue).")
+                    Text(l10n("Fast mode selected: only targets \(vm.passcodeLanguageTarget.rawValue) with \(vm.passcodeBoldTarget.rawValue)."))
                         .font(.system(size: 9))
                         .foregroundColor(.primary)
                         .fixedSize(horizontal: false, vertical: true)
@@ -3761,27 +3761,27 @@ struct ContentView: View {
                             let count = vm.effectiveCreatorKeys.count
                             let targetInfo = "\(vm.targetTelephonyVersion) · \(vm.passcodeLanguageTarget.code.uppercased()) · \(vm.passcodeBoldTarget.code)"
                             if count > 0 {
-                                Text("Theme Creator · \(count) of 10 keys configured · Target: \(targetInfo)")
+                                Text(l10n("Theme Creator · %d of 10 keys configured · Target: %@", count, targetInfo))
                                     .font(.system(size: 10))
                                     .foregroundColor(.secondary)
                             } else {
-                                Text("Theme Creator · Import a poster or drop icons onto keys")
+                                Text("Theme Creator · Import a poster or drop icons onto keys".localized)
                                     .font(.system(size: 10))
                                     .foregroundColor(.secondary)
                             }
                         } else if let theme = vm.loadedPasscodeTheme {
                             let targetInfo = "\(vm.targetTelephonyVersion) · \(vm.passcodeLanguageTarget.code.uppercased()) · \(vm.passcodeBoldTarget.code)"
-                            Text("\(theme.fileCount) source assets loaded · Target: \(targetInfo)")
+                            Text(l10n("%d source assets loaded · Target: %@", theme.fileCount, targetInfo))
                                 .font(.system(size: 10))
                                 .foregroundColor(.secondary)
                         } else {
-                            Text("No .passthm loaded · Select a theme package to flash")
+                            Text("No .passthm loaded · Select a theme package to flash".localized)
                                 .font(.system(size: 10))
                                 .foregroundColor(.secondary)
                         }
                     } else if !vm.cards.isEmpty {
                         let selectedCount = vm.cards.filter { $0.isSelected }.count
-                        Text("\(selectedCount) of \(vm.cards.count) cards selected · \(changedCount) changed · \(readyToFlashCount - changedCount) already on iPhone")
+                        Text(l10n("%d of %d cards selected · %d changed · %d already on iPhone", selectedCount, vm.cards.count, changedCount, readyToFlashCount - changedCount))
                             .font(.system(size: 10))
                             .foregroundColor(.secondary)
                     }
@@ -3794,7 +3794,7 @@ struct ContentView: View {
                     HStack(spacing: 5) {
                         Image(systemName: "terminal")
                             .frame(width: 14, height: 14)
-                        Text("Log")
+                        Text("Log".localized)
                         Image(systemName: vm.showLogs ? "chevron.down" : "chevron.up")
                             .font(.system(size: 9, weight: .bold))
                     }
@@ -3873,12 +3873,12 @@ struct ContentView: View {
             HStack {
                 Spacer()
                 HStack(spacing: 4) {
-                    Text("By")
+                    Text("By".localized)
                         .font(.system(size: 10))
                         .foregroundColor(.secondary)
                     Link("@mak5er", destination: URL(string: "https://github.com/mak5er")!)
                         .font(.system(size: 10))
-                    Text("&")
+                    Text("&".localized)
                         .font(.system(size: 10))
                         .foregroundColor(.secondary)
                     Link("@Lumid-Off", destination: URL(string: "https://github.com/Lumid-Off")!)
@@ -3907,7 +3907,7 @@ struct ContentView: View {
                             Text("🇺🇦")
                                 .font(.system(size: 13))
                         }
-                        Text("@mak5er • Lead Developer")
+                        Text("@mak5er • Lead Developer".localized)
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                     }
@@ -3949,7 +3949,7 @@ struct ContentView: View {
 
             // Payment Methods
             VStack(alignment: .leading, spacing: 8) {
-                Text("DONATE & SUPPORT")
+                Text("DONATE & SUPPORT".localized)
                     .font(.system(size: 10, weight: .bold))
                     .foregroundColor(.secondary)
                     .padding(.horizontal, 2)
@@ -3960,9 +3960,9 @@ struct ContentView: View {
                         Image(systemName: "creditcard.fill")
                             .font(.system(size: 14))
                         VStack(alignment: .leading, spacing: 1) {
-                            Text("Donate with PayPal")
+                            Text("Donate with PayPal".localized)
                                 .font(.system(size: 12, weight: .bold))
-                            Text("Recipient: Maksym Reva")
+                            Text("Recipient: Maksym Reva".localized)
                                 .font(.system(size: 10))
                                 .opacity(0.85)
                         }
@@ -4002,7 +4002,7 @@ struct ContentView: View {
                 )
             }
 
-            Text("Thank you for supporting AirCard development! ❤️")
+            Text("Thank you for supporting AirCard development! ❤️".localized)
                 .font(.system(size: 11))
                 .foregroundColor(.secondary)
                 .multilineTextAlignment(.center)
@@ -4017,11 +4017,11 @@ struct ContentView: View {
                     .font(.system(size: 40))
                     .foregroundColor(.pink)
 
-                Text("Welcome to AirCard!")
+                Text("Welcome to AirCard!".localized)
                     .font(.title2)
                     .fontWeight(.bold)
 
-                Text("Free & Open Source • Developed by @mak5er")
+                Text("Free & Open Source • Developed by @mak5er".localized)
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
@@ -4033,7 +4033,7 @@ struct ContentView: View {
             Divider()
 
             VStack(spacing: 8) {
-                Button("Continue to AirCard") {
+                Button("Continue to AirCard".localized) {
                     showSupportPopup = false
                 }
                 .buttonStyle(.borderedProminent)
@@ -4087,7 +4087,7 @@ struct ContentView: View {
                         HStack(spacing: 8) {
                             Image(systemName: "heart.fill")
                                 .foregroundColor(.pink)
-                            Text("Support @mak5er (Donate ❤️)")
+                            Text("Support @mak5er (Donate ❤️)".localized)
                                 .fontWeight(.semibold)
                             Spacer()
                             Image(systemName: "chevron.right")
@@ -4106,7 +4106,7 @@ struct ContentView: View {
                         HStack {
                             Image(systemName: "person.crop.circle.fill")
                                 .foregroundColor(.blue)
-                            Text("Developer:")
+                            Text("Developer:".localized)
                                 .fontWeight(.medium)
                             Link("@mak5er", destination: URL(string: "https://github.com/mak5er")!)
                             Text("·")
@@ -4117,7 +4117,7 @@ struct ContentView: View {
                         HStack {
                             Image(systemName: "person.crop.circle.fill")
                                 .foregroundColor(.blue)
-                            Text("Developer:")
+                            Text("Developer:".localized)
                                 .fontWeight(.medium)
                             Link("@Lumid-Off", destination: URL(string: "https://github.com/Lumid-Off")!)
                             Text("·")
@@ -4128,7 +4128,7 @@ struct ContentView: View {
                         HStack {
                             Image(systemName: "bolt.shield.fill")
                                 .foregroundColor(.orange)
-                            Text("Core Exploit:")
+                            Text("Core Exploit:".localized)
                                 .fontWeight(.medium)
                             Text("airlift (AirTraffic sync escape)".localized)
                                 .foregroundColor(.secondary)
@@ -4137,9 +4137,9 @@ struct ContentView: View {
                         HStack {
                             Image(systemName: "lock.shield.fill")
                                 .foregroundColor(.purple)
-                            Text("Passcode Themes:")
+                            Text("Passcode Themes:".localized)
                                 .fontWeight(.medium)
-                            Text(".passthm standard (Cowabunga / Nugget)")
+                            Text(".passthm standard (Cowabunga / Nugget)".localized)
                                 .foregroundColor(.secondary)
                         }
                     }
@@ -4165,9 +4165,9 @@ struct ContentView: View {
     
     private var addCardSheet: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Save Card IDs for Matching")
+            Text("Save Card IDs for Matching".localized)
                 .font(.headline)
-            Text("Paste one or more card IDs. Saved IDs remain hidden until the connected iPhone exposes them in a scan.")
+            Text("Paste one or more card IDs. Saved IDs remain hidden until the connected iPhone exposes them in a scan.".localized)
                 .font(.caption)
                 .foregroundColor(.secondary)
             
@@ -4187,7 +4187,7 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                Button("Save IDs") {
+                Button("Save IDs".localized) {
                     vm.addCardHash(vm.manualHashInput)
                     vm.showAddCardSheet = false
                     vm.manualHashInput = ""

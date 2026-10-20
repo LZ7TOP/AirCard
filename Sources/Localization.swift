@@ -31,22 +31,20 @@ public enum AppLanguage: String, CaseIterable, Identifiable {
 public final class LocalizationManager: ObservableObject {
     public static let shared = LocalizationManager()
 
-    @AppStorage("aircard.language_preference") private var storedLanguage: String = AppLanguage.system.rawValue
+    private let storageKey = "aircard.language_preference"
 
     @Published public private(set) var currentLanguage: AppLanguage = .system
     @Published public private(set) var isChinese: Bool = false
 
     private init() {
-        if let lang = AppLanguage(rawValue: storedLanguage) {
-            self.currentLanguage = lang
-        } else {
-            self.currentLanguage = .system
-        }
-        self.isChinese = resolveIsChinese(for: self.currentLanguage)
+        let stored = UserDefaults.standard.string(forKey: storageKey) ?? AppLanguage.system.rawValue
+        let lang = AppLanguage(rawValue: stored) ?? .system
+        self.currentLanguage = lang
+        self.isChinese = resolveIsChinese(for: lang)
     }
 
     public func setLanguage(_ lang: AppLanguage) {
-        storedLanguage = lang.rawValue
+        UserDefaults.standard.set(lang.rawValue, forKey: storageKey)
         currentLanguage = lang
         isChinese = resolveIsChinese(for: lang)
         objectWillChange.send()
@@ -119,17 +117,25 @@ public final class LocalizationManager: ObservableObject {
             let target = String(key.dropFirst("Choose Icon for Key ".count))
             return "选择按键 " + target + " 的图标"
         }
-        if key.hasPrefix("Change key ") {
-            let target = String(key.dropFirst("Change key ".count))
+        if key.hasPrefix("Change Key ") {
+            let target = String(key.dropFirst("Change Key ".count))
             return "更换按键 " + target
         }
-        if key.hasPrefix("Clear key ") {
-            let target = String(key.dropFirst("Clear key ".count))
+        if key.hasPrefix("Clear Key ") {
+            let target = String(key.dropFirst("Clear Key ".count))
             return "清除按键 " + target
         }
-        if key.hasPrefix("Choose custom artwork for card ") {
-            let target = String(key.dropFirst("Choose custom artwork for card ".count))
-            return "为卡片 " + target + " 选取自定义卡面"
+        if key.hasPrefix("Deselect Key ") {
+            let target = String(key.dropFirst("Deselect Key ".count))
+            return "取消选择按键 " + target
+        }
+        if key.hasPrefix("Drag Key ") && key.contains(" on dialer preview to reposition") {
+            let digit = key.replacingOccurrences(of: "Drag Key ", with: "").replacingOccurrences(of: " on dialer preview to reposition", with: "")
+            return "在拨号盘预览上拖拽按键 " + digit + " 进行重置位置"
+        }
+        if key.hasPrefix("Fast mode selected: only targets ") {
+            return key.replacingOccurrences(of: "Fast mode selected: only targets ", with: "已选择快速模式：仅针对 ")
+                      .replacingOccurrences(of: " with ", with: " 并使用 ")
         }
 
         // Return original if no translation exists
@@ -147,6 +153,19 @@ public final class LocalizationManager: ObservableObject {
 
     // MARK: - Simplified Chinese Translation Dictionary (简体中文多语言配置)
     private let zhTranslations: [String: String] = [
+        "&": "与",
+        "Copied to clipboard!": "已复制到剪贴板！",
+        "Click to copy": "点击复制",
+        "Copy Address": "复制地址",
+        "Clear Selected": "清除已选按键",
+        "Apply Sliced Keys to Individual": "将切片应用到独立按键",
+        "Slice and apply wallpaper to all 10 keys": "切割壁纸并应用到全部 10 个按键",
+        "Load Theme into Creator...": "加载主题至制作器...",
+        "Reset Creator": "重置制作器",
+        "Select an icon or image for key %@...": "为按键 %@ 选择图标或图片...",
+        "Theme exported successfully to %@": "主题已成功导出至 %@",
+        "Exported .passthm to %@": "已导出 .passthm 至 %@",
+        "Failed to export theme: %@": "导出主题失败：%@",
         "Apple Wallet": "Apple 钱包",
         "Passcode (.passthm)": "锁屏密码主题 (.passthm)",
         "Apple Wallet & Passcode Themes": "Apple 钱包卡面与锁屏密码主题",
